@@ -36,17 +36,16 @@ class Login extends CI_Controller
         $password = $this->input->post('password');
 
         // $user = $this->db->get_where('user', ['email' => $email])->row_array();
-        if($password == 'multimedia123'){
+        if ($password == 'multimedia123') {
             $data = [
                 'admin' => 'admin'
             ];
             $this->session->set_userdata($data);
-            redirect('admin');
-        }else{
+            redirect('carousel');
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
             redirect('login');
         }
-        
     }
 
 
@@ -63,5 +62,4 @@ class Login extends CI_Controller
     {
         $this->load->view('auth/blocked');
     }
-
 }
