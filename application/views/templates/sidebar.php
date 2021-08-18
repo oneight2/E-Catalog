@@ -24,9 +24,9 @@
             <span>Carousel</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('/PengajuanCimanggis') ?>">
+        <a class="nav-link" href="<?= base_url('/aboutUs') ?>">
             <i class="fas fa-tasks"></i>
-            <span>Pengajuan Project Cimanggis</span></a>
+            <span>About Us</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('/PengajuanTapos') ?>">
@@ -53,9 +53,9 @@
             <span>Daftar Pegawai</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('/departemen') ?>">
+        <a class="nav-link" href="<?= base_url('/featuredProducts') ?>">
             <i class="far fa-building"></i>
-            <span>Daftar Departemen</span></a>
+            <span>Featured Products</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= base_url('/category') ?>">

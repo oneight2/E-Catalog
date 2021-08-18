@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Kategori</th>
+                            <th>Featured Product</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,9 +37,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Nama Kategori</label>
+                        <label class="col-md-2 col-form-label">Name Featured</label>
                         <div class="col-md-10">
-                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Kategori">
+                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Name Featured">
                         </div>
                     </div>
                 </div>
@@ -58,17 +58,17 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Kategori</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Name Featured</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Nama Kategori</label>
+                        <label class="col-md-2 col-form-label">Name Featured</label>
                         <div class="col-md-10">
-                            <input type="text" id="id_kategori" class="form-control"  hidden>
-                            <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Nama Kategori">
+                            <input type="text" id="id_featured" class="form-control"  hidden>
+                            <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Name Featured">
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Kategori</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Featured</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -175,7 +175,7 @@
                             function show_product(){
                                 $.ajax({
                                     type  : 'GET',
-                                    url   : '<?php echo site_url('Category/product_data')?>',
+                                    url   : '<?php echo site_url('FeaturedProducts/product_data')?>',
                                     async : false,
                                     dataType : 'json',
                                     contentType: "application/json",
@@ -186,10 +186,10 @@
                                         for(i=0; i<data.length; i++){
                                             html += '<tr>'+
                                                     '<td>'+ no++ +'</td>'+
-                                                    '<td>'+data[i].name_category+'</td>'+
+                                                    '<td>'+data[i].name_featured+'</td>'+
                                                     '<td style="text-align:center;">'+
-                                                        '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="'+data[i].name_category+'" data-id_kategori='+data[i].id_category+'><i class="fas fa-edit"></i></a>'+' '+
-                                                        '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_kategori="'+data[i].id_category+'" ><i class="fas fa-trash"></i></a>'+
+                                                        '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-name_featured="'+data[i].name_featured+'" data-id_featured='+data[i].id_featured+'><i class="fas fa-edit"></i></a>'+' '+
+                                                        '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_featured="'+data[i].id_featured+'" ><i class="fas fa-trash"></i></a>'+
                                                     '</td>'+
                                                     '</tr>';
                                         }
@@ -201,12 +201,12 @@
 
                             //Save product
                             $('#btn_save').on('click',function(){
-                                var nama_kategori= $('#nama').val();
+                                var name_featured= $('#nama').val();
                                 $.ajax({
                                     type : "POST",
-                                    url  : "<?php echo site_url('Category/save')?>",
+                                    url  : "<?php echo site_url('FeaturedProducts/save')?>",
                                     dataType : "JSON",
-                                    data : {name_category:nama_kategori},
+                                    data : {name_featured:name_featured},
                                     success: function(data){
                                         $('[id="nama"]').val("");
                                         $('#Modal_Add').modal('hide');
@@ -218,25 +218,25 @@
 
                             //get data for update record
                             $('#show_data').on('click','.item_edit',function(){
-                                var id_kategori = $(this).data('id_kategori');
-                                var nama_kategori = $(this).data('nama_kategori');
+                                var id_featured = $(this).data('id_featured');
+                                var name_featured = $(this).data('name_featured');
                                 
                                 $('#Modal_Edit').modal('show');
-                                $('[id="id_kategori"]').val(id_kategori);
-                                $('[id="nama_edit"]').val(nama_kategori);
+                                $('[id="id_featured"]').val(id_featured);
+                                $('[id="nama_edit"]').val(name_featured);
                             });
 
                             //update record to database
                              $('#btn_update').on('click',function(){
-                                var id_kategori = $('#id_kategori').val();
-                                var nama_kategori = $('#nama_edit').val();
+                                var id_featured = $('#id_featured').val();
+                                var name_featured = $('#nama_edit').val();
                                 $.ajax({
                                     type : "POST",
-                                    url  : "<?php echo site_url('Category/update')?>",
+                                    url  : "<?php echo site_url('FeaturedProducts/update')?>",
                                     dataType : "JSON",
-                                    data : {id_category:id_kategori , name_category:nama_kategori},
+                                    data : {id_featured:id_featured , name_featured:name_featured},
                                     success: function(data){
-                                        $('[id="id_kategori"]').val("");
+                                        $('[id="id_featured"]').val("");
                                         $('[id="nama_edit"]').val("");
                                         $('#Modal_Edit').modal('hide');
                                         show_product();
@@ -247,20 +247,20 @@
 
                             //get data for delete record
                             $('#show_data').on('click','.item_delete',function(){
-                                var id_kategori= $(this).data('id_kategori');
+                                var id_featured= $(this).data('id_featured');
                                 
                                 $('#Modal_Delete').modal('show');
-                                $('[id="id_delete"]').val(id_kategori);
+                                $('[id="id_delete"]').val(id_featured);
                             });
 
                             //delete record to database
                              $('#btn_delete').on('click',function(){
-                                var id_kategori = $('#id_delete').val();
+                                var id_featured = $('#id_delete').val();
                                 $.ajax({
                                     type : "POST",
-                                    url  : "<?php echo site_url('Category/delete')?>",
+                                    url  : "<?php echo site_url('FeaturedProducts/delete')?>",
                                     dataType : "JSON",
-                                    data : {id_category:id_kategori},
+                                    data : {id_featured:id_featured},
                                     success: function(data){
                                         $('[id="id_delete"]').val("");
                                         $('#Modal_Delete').modal('hide');

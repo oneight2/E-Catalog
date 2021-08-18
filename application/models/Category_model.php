@@ -15,18 +15,18 @@ class Category_model extends CI_Model{
 	}
 
 	function update_product(){
-		$id=$this->input->post('id');
+		$id=$this->input->post('id_category');
 		$name=$this->input->post('name_category');
 
 		$this->db->set('name_category', $name);
-		$this->db->where('id', $id);
+		$this->db->where('id_category', $id);
 		$result=$this->db->update('category');
 		return $result;
 	}
 
 	function delete_product(){
-		$id=$this->input->post('id');
-		$this->db->where('id', $id);
+		$id=$this->input->post('id_category');
+		$this->db->where('id_category', $id);
 		$result=$this->db->delete('category');
 		return $result;
 		

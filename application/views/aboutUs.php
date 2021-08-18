@@ -5,107 +5,15 @@
             <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
         </div>
         <div class="card-body">
-        <a href="javascript:void(0);" class="btn btn-primary btn-sm ml-3 mb-4" data-toggle="modal" data-target="#Modal_Add"><span class="fa fa-plus"></span> Tambah Data</a>
-            <div class="table-responsive">
-                <table class="table table-striped" id="mydata">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Kategori</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="show_data">
-                        
-                    </tbody>
-                </table>
-            </div>
+        <input type="text" name="about" id="about" class="form-control" placeholder="About">
+        <input type="text" name="instagram" id="instagram" class="form-control" placeholder="Instagram">
+        <input type="text" name="shopee" id="shopee" class="form-control" placeholder="Shopee">
+        <input type="text" name="siplah" id="siplah" class="form-control" placeholder="Siplah">
+
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
-<!-- MODAL ADD -->
-<form>
-    <div class="modal fade" id="Modal_Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Nama Kategori</label>
-                        <div class="col-md-10">
-                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Kategori">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" type="submit" id="btn_save" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!--END MODAL ADD-->
-<!-- MODAL EDIT -->
-<form>
-    <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Kategori</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Nama Kategori</label>
-                        <div class="col-md-10">
-                            <input type="text" id="id_kategori" class="form-control"  hidden>
-                            <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Nama Kategori">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" type="submit" id="btn_update" class="btn btn-primary">Update</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!--END MODAL EDIT-->
-<!--MODAL DELETE-->
-<form>
-    <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Kategori</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <strong>Are you sure to delete this record?</strong>
-                </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="id_delete" id="id_delete" class="form-control">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <button type="button" type="submit" id="btn_delete" class="btn btn-primary">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!--END MODAL DELETE-->
-
 
 <!-- FOOTER -->
 </div>
@@ -175,7 +83,7 @@
                             function show_product(){
                                 $.ajax({
                                     type  : 'GET',
-                                    url   : '<?php echo site_url('Category/product_data')?>',
+                                    url   : '<?php echo site_url('About/product_data')?>',
                                     async : false,
                                     dataType : 'json',
                                     contentType: "application/json",
@@ -184,14 +92,9 @@
                                         var no = 1;
                                         var i;
                                         for(i=0; i<data.length; i++){
-                                            html += '<tr>'+
+                                            html += 
                                                     '<td>'+ no++ +'</td>'+
-                                                    '<td>'+data[i].name_category+'</td>'+
-                                                    '<td style="text-align:center;">'+
-                                                        '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="'+data[i].name_category+'" data-id_kategori='+data[i].id_category+'><i class="fas fa-edit"></i></a>'+' '+
-                                                        '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_kategori="'+data[i].id_category+'" ><i class="fas fa-trash"></i></a>'+
-                                                    '</td>'+
-                                                    '</tr>';
+                                                    '<td>'+data[i].name_category+'</td>'+;
                                         }
                                         $('#show_data').html(html);
                                     }
