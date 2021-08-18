@@ -1,7 +1,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-5">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Reviews Customer</h6>
     </div>
     <div class="card-body">
         <a href="javascript:void(0);" class="btn btn-primary btn-sm ml-3 mb-4" data-toggle="modal" data-target="#Modal_Add"><span class="fa fa-plus"></span> Tambah Data</a>
@@ -10,7 +10,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Featured Product</th>
+                        <th>Review Customer</th>
+                        <th>Name Customer</th>
+                        <th>Type Customer</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,9 +38,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Name Featured</label>
+                        <label class="col-md-2 col-form-label">Review Customer</label>
                         <div class="col-md-10">
-                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Name Featured">
+                            <textarea type="text" name="review" id="review" placeholder="Review Customer"></textarea>
+                            <input type="text" name="name_customer" id="name_customer" class="form-control mt-3" placeholder="Name Customer" required>
+                            <input type="text" name="jenis_customer" id="jenis_customer" class="form-control mt-2" placeholder="Kategori Costumer (bisa berupa jabatan atau nama perusahaan)" required>
                         </div>
                     </div>
                 </div>
@@ -57,17 +61,19 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Name Featured</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Review</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label">Name Featured</label>
+                        <label class="col-md-2 col-form-label">Nama Kategori</label>
                         <div class="col-md-10">
-                            <input type="text" id="id_featured" class="form-control" hidden>
-                            <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Name Featured">
+                            <input type="text" id="id_review" class="form-control" hidden>
+                            <textarea type="text" name="review_edit" id="review_edit" placeholder="Review Customer"></textarea>
+                            <input type="text" name="edit_name_customer" id="edit_name_customer" class="form-control mt-3" placeholder="Name Customer">
+                            <input type="text" name="edit_customer" id="edit_customer" class="form-control mt-2" placeholder="Kategori Costumer (bisa berupa jabatan atau nama perusahaan)">
                         </div>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Featured</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Review</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -105,11 +111,8 @@
 </form>
 <!--END MODAL DELETE-->
 
-
-
 <!-- FOOTER -->
 <?php $this->load->view('templates/footer'); ?>
-
 
 
 <script>
@@ -118,11 +121,44 @@
 
         $('#mydata').dataTable();
 
+        function texteditor() {
+            tinymce.init({
+                selector: 'textarea#review',
+                height: 300,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+            tinymce.init({
+                selector: 'textarea#review_edit',
+                height: 300,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+        }
+
         //function show all product
         function show_product() {
             $.ajax({
                 type: 'GET',
-                url: '<?php echo site_url('FeaturedProducts/product_data') ?>',
+                url: '<?php echo site_url('Reviews/product_data') ?>',
                 async: false,
                 dataType: 'json',
                 contentType: "application/json",
@@ -133,10 +169,12 @@
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
                             '<td>' + no++ + '</td>' +
-                            '<td>' + data[i].name_featured + '</td>' +
+                            '<td>' + data[i].review + '</td>' +
+                            '<td>' + data[i].name_customer + '</td>' +
+                            '<td>' + data[i].type_customer + '</td>' +
                             '<td style="text-align:center;">' +
-                            '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-name_featured="' + data[i].name_featured + '" data-id_featured=' + data[i].id_featured + '><i class="fas fa-edit"></i></a>' + ' ' +
-                            '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_featured="' + data[i].id_featured + '" ><i class="fas fa-trash"></i></a>' +
+                            '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-review="' + data[i].review + '" data-id_review="' + data[i].id_review + '" data-type_customer="' + data[i].type_customer + '" data-name_customer="' + data[i].name_customer + '" ><i class="fas fa-edit"></i></a>' + ' ' +
+                            '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_review="' + data[i].id_review + '" ><i class="fas fa-trash"></i></a>' +
                             '</td>' +
                             '</tr>';
                     }
@@ -144,20 +182,25 @@
                 }
 
             });
+            texteditor()
         }
 
         //Save product
         $('#btn_save').on('click', function() {
-            var name_featured = $('#nama').val();
+            var review = tinyMCE.activeEditor.getContent();
+            var name_customer = $('#name_customer').val();
+            var type_customer = $('#jenis_customer').val();
             $.ajax({
                 type: "POST",
-                url: "<?php echo site_url('FeaturedProducts/save') ?>",
+                url: "<?php echo site_url('Reviews/save') ?>",
                 dataType: "JSON",
                 data: {
-                    name_featured: name_featured
+                    review: review,
+                    name_customer: name_customer,
+                    type_customer: type_customer
                 },
                 success: function(data) {
-                    $('[id="nama"]').val("");
+                    $('[id="review"]').val("");
                     $('#Modal_Add').modal('hide');
                     show_product();
                 }
@@ -167,29 +210,42 @@
 
         //get data for update record
         $('#show_data').on('click', '.item_edit', function() {
-            var id_featured = $(this).data('id_featured');
-            var name_featured = $(this).data('name_featured');
+            var id_review = $(this).data('id_review');
+            var review = $(this).data('review');
+            var name_customer = $(this).data('name_customer');
+            var type_customer = $(this).data('type_customer');
 
             $('#Modal_Edit').modal('show');
-            $('[id="id_featured"]').val(id_featured);
-            $('[id="nama_edit"]').val(name_featured);
+            $('[id="id_review"]').val(id_review);
+            tinymce.activeEditor.setContent(review);
+            $('[id="edit_name_customer"]').val(name_customer);
+            $('[id="edit_customer"]').val(type_customer);
         });
 
         //update record to database
         $('#btn_update').on('click', function() {
-            var id_featured = $('#id_featured').val();
-            var name_featured = $('#nama_edit').val();
+            var id_review = $('#id_review').val();
+            var review = tinyMCE.activeEditor.getContent();
+            var name_customer = $('#edit_name_customer').val();
+            var type_customer = $('#edit_customer').val();
+            console.log(review)
+            console.log(id_review)
             $.ajax({
                 type: "POST",
-                url: "<?php echo site_url('FeaturedProducts/update') ?>",
+                url: "<?php echo site_url('Reviews/update') ?>",
                 dataType: "JSON",
                 data: {
-                    id_featured: id_featured,
-                    name_featured: name_featured
+                    id_review: id_review,
+                    review: review,
+                    name_customer: name_customer,
+                    type_customer: type_customer
                 },
                 success: function(data) {
-                    $('[id="id_featured"]').val("");
-                    $('[id="nama_edit"]').val("");
+                    $('[id="id_review"]').val("");
+                    $('[id="edit_name_customer"]').val("");
+                    $('[id="edit_customer"]').val("");
+                    $('[id="id_review"]').val("");
+                    tinymce.activeEditor.setContent("")
                     $('#Modal_Edit').modal('hide');
                     show_product();
                 }
@@ -199,21 +255,21 @@
 
         //get data for delete record
         $('#show_data').on('click', '.item_delete', function() {
-            var id_featured = $(this).data('id_featured');
+            var id_review = $(this).data('id_review');
 
             $('#Modal_Delete').modal('show');
-            $('[id="id_delete"]').val(id_featured);
+            $('[id="id_delete"]').val(id_review);
         });
 
         //delete record to database
         $('#btn_delete').on('click', function() {
-            var id_featured = $('#id_delete').val();
+            var id_review = $('#id_delete').val();
             $.ajax({
                 type: "POST",
-                url: "<?php echo site_url('FeaturedProducts/delete') ?>",
+                url: "<?php echo site_url('Reviews/delete') ?>",
                 dataType: "JSON",
                 data: {
-                    id_featured: id_featured
+                    id_review: id_review
                 },
                 success: function(data) {
                     $('[id="id_delete"]').val("");

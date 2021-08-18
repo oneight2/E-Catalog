@@ -29,9 +29,9 @@
             <span>About Us</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('/PengajuanTapos') ?>">
+        <a class="nav-link" href="<?= base_url('/reviews') ?>">
             <i class="fas fa-file-alt"></i>
-            <span>Pengajuan Project Tapos</span></a>
+            <span>Reviews</span></a>
     </li>
 
     <li class="nav-item">

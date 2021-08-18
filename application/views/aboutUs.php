@@ -1,181 +1,117 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4 mt-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">About Us</h6>
+    </div>
+    <div class="card-body">
+        <div id="show_data">
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4 mt-5">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
         </div>
-        <div class="card-body">
-        <input type="text" name="about" id="about" class="form-control" placeholder="About">
+        <button type="button" type="submit" id="btn_update" class="btn btn-primary btn-block mt-3 right">Update</button>
+
+        <!-- <input type="text" name="about" id="about" class="form-control" placeholder="About">
         <input type="text" name="instagram" id="instagram" class="form-control" placeholder="Instagram">
         <input type="text" name="shopee" id="shopee" class="form-control" placeholder="Shopee">
-        <input type="text" name="siplah" id="siplah" class="form-control" placeholder="Siplah">
+        <input type="text" name="siplah" id="siplah" class="form-control" placeholder="Siplah"> -->
 
-        </div>
     </div>
+</div>
 </div>
 <!-- /.container-fluid -->
 
 <!-- FOOTER -->
-</div>
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy;Indonesia Heritage Foundation<?= date('Y'); ?></span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-            </div>
-            <!-- End of Page Wrapper -->
-
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
-
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="<?= base_url('login/logout'); ?>">Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bootstrap core JavaScript-->
-           <!--  <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
-            <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-            <script type="text/javascript" src="<?= base_url('assets/').'ajax/js/jquery-3.2.1.js'?>"></script>
-            <script type="text/javascript" src="<?= base_url('assets/').'ajax/js/bootstrap.js'?>"></script>
-            <script type="text/javascript" src="<?= base_url('assets/').'ajax/js/jquery.dataTables.js'?>"></script>
-            <script type="text/javascript" src="<?= base_url('assets/').'ajax/js/dataTables.bootstrap4.js'?>"></script>
-
-            <!-- Core plugin JavaScript-->
-            <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-            <!-- Custom scripts for all pages-->
-            <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
-            
+<?php $this->load->view('templates/footer'); ?>
 
 
-            <script>
-              $(document).ready(function(){
-                            show_product(); //call function show all product
-                            
-                            $('#mydata').dataTable();
-                             
-                            //function show all product
-                            function show_product(){
-                                $.ajax({
-                                    type  : 'GET',
-                                    url   : '<?php echo site_url('About/product_data')?>',
-                                    async : false,
-                                    dataType : 'json',
-                                    contentType: "application/json",
-                                    success : function(data){
-                                        var html = '';
-                                        var no = 1;
-                                        var i;
-                                        for(i=0; i<data.length; i++){
-                                            html += 
-                                                    '<td>'+ no++ +'</td>'+
-                                                    '<td>'+data[i].name_category+'</td>'+;
-                                        }
-                                        $('#show_data').html(html);
-                                    }
+<script>
+    $(document).ready(function() {
+        show_product(); //call function show all product
 
-                                });
-                            }
+        function texteditor() {
+            tinymce.init({
+                selector: 'textarea#about',
+                height: 500,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+        }
 
-                            //Save product
-                            $('#btn_save').on('click',function(){
-                                var nama_kategori= $('#nama').val();
-                                $.ajax({
-                                    type : "POST",
-                                    url  : "<?php echo site_url('Category/save')?>",
-                                    dataType : "JSON",
-                                    data : {name_category:nama_kategori},
-                                    success: function(data){
-                                        $('[id="nama"]').val("");
-                                        $('#Modal_Add').modal('hide');
-                                        show_product();
-                                    }
-                                });
-                                return false;
-                            });
 
-                            //get data for update record
-                            $('#show_data').on('click','.item_edit',function(){
-                                var id_kategori = $(this).data('id_kategori');
-                                var nama_kategori = $(this).data('nama_kategori');
-                                
-                                $('#Modal_Edit').modal('show');
-                                $('[id="id_kategori"]').val(id_kategori);
-                                $('[id="nama_edit"]').val(nama_kategori);
-                            });
+        //function show all product
+        function show_product() {
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo site_url('AboutUs/product_data') ?>',
+                async: false,
+                dataType: 'json',
+                contentType: "application/json",
+                success: function(data) {
+                    var html = '';
+                    html +=
+                        '<textarea type="text" name="about" id="about" class="form-control" placeholder="About" value="">' + data[0].description + '</textarea>' +
+                        '<div class="row">' +
+                        '<div class="col-md-6">' +
+                        '<label for="instagram" class="form-label mt-2">Link Instagram</label>' +
+                        '<input type="text" name="instagram" id="instagram" class="form-control" placeholder="Instagram" value="' + data[0].instagram + '"/>' +
+                        '<label for="shopee" class="form-label mt-2">Link Shopee</label>' +
+                        '<input type="text" name="shopee" id="shopee" class="form-control" placeholder="shopee" value="' + data[0].shopee + '"/>' +
+                        '</div> <div class="col-md-6">' +
+                        '<label for="siplah" class="form-label mt-2">Link Siplah</label>' +
+                        '<input type="text" name="siplah" id="siplah" class="form-control" placeholder="siplah" value="' + data[0].siplah + '"/>' +
+                        '<label for="whatsapp" class="form-label mt-2">Nomor Whatsapp</label>' +
+                        '<input type="text" name="whatsapp" id="whatsapp" class="form-control" placeholder="whatsapp" value="' + data[0].whatsapp + '"/>';
+                    '</div> </div>'
+                    $('#show_data').html(html);
+                }
 
-                            //update record to database
-                             $('#btn_update').on('click',function(){
-                                var id_kategori = $('#id_kategori').val();
-                                var nama_kategori = $('#nama_edit').val();
-                                $.ajax({
-                                    type : "POST",
-                                    url  : "<?php echo site_url('Category/update')?>",
-                                    dataType : "JSON",
-                                    data : {id_category:id_kategori , name_category:nama_kategori},
-                                    success: function(data){
-                                        $('[id="id_kategori"]').val("");
-                                        $('[id="nama_edit"]').val("");
-                                        $('#Modal_Edit').modal('hide');
-                                        show_product();
-                                    }
-                                });
-                                return false;
-                            });
+            })
 
-                            //get data for delete record
-                            $('#show_data').on('click','.item_delete',function(){
-                                var id_kategori= $(this).data('id_kategori');
-                                
-                                $('#Modal_Delete').modal('show');
-                                $('[id="id_delete"]').val(id_kategori);
-                            });
+            texteditor();
+        }
 
-                            //delete record to database
-                             $('#btn_delete').on('click',function(){
-                                var id_kategori = $('#id_delete').val();
-                                $.ajax({
-                                    type : "POST",
-                                    url  : "<?php echo site_url('Category/delete')?>",
-                                    dataType : "JSON",
-                                    data : {id_category:id_kategori},
-                                    success: function(data){
-                                        $('[id="id_delete"]').val("");
-                                        $('#Modal_Delete').modal('hide');
-                                        show_product();
-                                    }
-                                });
-                                return false;
-                            });
 
-                        });
-            </script>
 
-            </body>
+        //update record to database
+        $('#btn_update').on('click', function() {
+            var about = tinyMCE.activeEditor.getContent();
+            var instagram = $('#instagram').val()
+            var shopee = $('#shopee').val()
+            var siplah = $('#siplah').val()
+            var whatsapp = $('#whatsapp').val()
+            $.ajax({
+                type: "POST",
+                url: "<?php echo site_url('AboutUs/update') ?>",
+                dataType: "JSON",
+                data: {
+                    about: about,
+                    instagram: instagram,
+                    shopee: shopee,
+                    siplah: siplah,
+                    whatsapp: whatsapp
+                },
+                success: function(data) {
+                    show_product();
+                    new Toast({
+                        message: 'Data Berhasil di Update',
+                        type: 'success'
+                    });
+                }
+            });
+            return false;
+        });
 
-            </html>
+    });
+</script>
+
+</body>
+
+</html>
