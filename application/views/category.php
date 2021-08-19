@@ -11,6 +11,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Kategori</th>
+                        <th>Icon</th>
                         <th>Action</th>
                     </tr>
                 </thead>

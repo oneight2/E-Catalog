@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2021 at 11:49 AM
+-- Generation Time: Aug 19, 2021 at 10:49 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -92,6 +92,50 @@ INSERT INTO `featured_products` (`id_featured`, `name_featured`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `photo_products`
+--
+
+CREATE TABLE `photo_products` (
+  `id_photo` int(11) NOT NULL,
+  `photo` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `photo_products`
+--
+
+INSERT INTO `photo_products` (`id_photo`, `photo`) VALUES
+(1, 'default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name_product` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `weight` varchar(100) NOT NULL,
+  `stock` varchar(100) NOT NULL,
+  `id_photos` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `id_featured` int(11) DEFAULT NULL,
+  `status` enum('show','hide') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `status`) VALUES
+(2, 'Buku Seri Vivi', 'Bukuuu luchuuuuuuuuuu', '120000', '500 gr', '100', 1, 1, 2, 'show');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -132,6 +176,21 @@ ALTER TABLE `featured_products`
   ADD PRIMARY KEY (`id_featured`);
 
 --
+-- Indexes for table `photo_products`
+--
+ALTER TABLE `photo_products`
+  ADD PRIMARY KEY (`id_photo`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category` (`id_category`),
+  ADD KEY `featured` (`id_featured`),
+  ADD KEY `photo` (`id_photos`);
+
+--
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
@@ -160,10 +219,28 @@ ALTER TABLE `featured_products`
   MODIFY `id_featured` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`),
+  ADD CONSTRAINT `featured` FOREIGN KEY (`id_featured`) REFERENCES `featured_products` (`id_featured`),
+  ADD CONSTRAINT `photo` FOREIGN KEY (`id_photos`) REFERENCES `photo_products` (`id_photo`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

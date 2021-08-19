@@ -19,6 +19,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
     <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('/products') ?>">
+            <i class="fas fa-tools"></i>
+            <span>Product</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('/carousel') ?>">
             <i class="fas fa-images"></i>
             <span>Carousel</span></a>
@@ -34,11 +39,6 @@
             <span>Reviews</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('/AdminMaintenance') ?>">
-            <i class="fas fa-tools"></i>
-            <span>Pengajuan Perbaikan</span></a>
-    </li>
 
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Heading -->
