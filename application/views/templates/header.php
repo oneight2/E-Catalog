@@ -22,6 +22,8 @@
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- <link href="<?= base_url('assets/'); ?>css/style.css" rel="stylesheet"> -->
     <link href="<?= base_url('assets/'); ?>vendor/toast/dist/css/Toast.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>vendor/filepond/dist/filepond.css" rel="stylesheet">
 
 
 </head>

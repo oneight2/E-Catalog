@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Products extends CI_Controller
+class AddProduct extends CI_Controller
 {
     public function __construct()
     {
@@ -9,7 +9,7 @@ class Products extends CI_Controller
         is_logged_in();
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Jakarta');
-        $this->load->model('Products_model', 'products');
+        $this->load->model('AddProduct_model');
         $this->session->unset_userdata('message');
     }
 
@@ -17,15 +17,22 @@ class Products extends CI_Controller
     {
         $data = array(
             'title' => "Admin",
-            'products' => $this->products->product_list()
+            'category' => $this->AddProduct_model->category_list(),
+            'featured' => $this->AddProduct_model->featured_list()
         );
 
-        // $data['products'] = 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('products', $data);
+        $this->load->view('addProduct', $data);
     }
 
+    function save()
+    {
+        // $data = $this->departemen_model->save_product();
+        // echo json_encode($data);
+        var_dump($_FILES);
+        die();
+    }
 
     function update()
     {
