@@ -1,3 +1,4 @@
+<?php var_dump($product); ?>
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-5">
     <div class="card-header py-3">

@@ -7,6 +7,21 @@ class Products_model extends CI_Model
         $query = "SELECT * FROM `products` JOIN `category` ON `products`.`id_category` = `category`.`id_category` ";
         return $this->db->query($query)->result_array();
     }
+    function category_list()
+    {
+        $query = "SELECT * FROM `category` ";
+        return $this->db->query($query)->result_array();
+    }
+    function featured_list()
+    {
+        $query = "SELECT * FROM `featured_products` ";
+        return $this->db->query($query)->result_array();
+    }
+    function product_data($id)
+    {
+        $query = "SELECT * FROM `products` WHERE `id` = $id ";
+        return $this->db->query($query)->result_array();
+    }
 
     // function save_product(){
     // 	$data = array(
@@ -28,11 +43,18 @@ class Products_model extends CI_Model
 
     function delete_product()
     {
-        $id_carousel = $this->input->post('id_carousel');
-        $img_carousel = $this->input->post('img_carousel');
-        unlink('assets/carousel/' . $img_carousel);
-        $this->db->where('id', $id_carousel);
-        $result = $this->db->delete('carousel');
+        $id_product = $this->input->post('id_product');
+        $id_photos = $this->input->post('id_photos');
+        $query = "SELECT * FROM `photo_products` WHERE `id_photo` = $id_photos ";
+        $hasil = $this->db->query($query)->result_array();
+        foreach ($hasil as $row) :
+            unlink('assets/product/' . $row['photo']);
+        endforeach;
+
+        $this->db->where('id', $id_product);
+        $result = $this->db->delete('products');
+        $this->db->where('id_photo', $id_photos);
+        $result = $this->db->delete('photo_products');
         return $result;
     }
 }

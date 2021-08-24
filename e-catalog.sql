@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2021 at 11:20 AM
+-- Generation Time: Aug 24, 2021 at 11:40 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -105,7 +105,8 @@ CREATE TABLE `photo_products` (
 --
 
 INSERT INTO `photo_products` (`id_photo`, `photo`) VALUES
-(1, 'default.jpg');
+(1629796721, '9c4fa9bdd95d7bbd868cd6d0d30e8871.jpg'),
+(1629796721, '6fa84e58e95969996da65e450431c7eb.jpg');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `status`) VALUES
-(2, 'Buku Seri Vivi', 'Bukuuu luchuuuuuuuuuu', '120000', '500 gr', '100', 1, 1, 2, 'show');
+(14, 'Menjadi Manusia Berkarakter', '<p>tesssssssssssss</p>', 'Rp. 10.000', '1', '1', 1629796721, 1, 2, 'show');
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,7 @@ ALTER TABLE `featured_products`
 -- Indexes for table `photo_products`
 --
 ALTER TABLE `photo_products`
-  ADD PRIMARY KEY (`id_photo`);
+  ADD KEY `id_photo` (`id_photo`);
 
 --
 -- Indexes for table `products`
@@ -204,7 +205,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -222,7 +223,7 @@ ALTER TABLE `featured_products`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `reviews`
