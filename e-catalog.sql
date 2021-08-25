@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2021 at 11:40 AM
+-- Generation Time: Aug 25, 2021 at 01:00 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -87,7 +87,8 @@ CREATE TABLE `featured_products` (
 --
 
 INSERT INTO `featured_products` (`id_featured`, `name_featured`) VALUES
-(2, 'New Arrivals');
+(2, 'New Arrivals'),
+(3, 'Hot Sales');
 
 -- --------------------------------------------------------
 
@@ -105,8 +106,7 @@ CREATE TABLE `photo_products` (
 --
 
 INSERT INTO `photo_products` (`id_photo`, `photo`) VALUES
-(1629796721, '9c4fa9bdd95d7bbd868cd6d0d30e8871.jpg'),
-(1629796721, '6fa84e58e95969996da65e450431c7eb.jpg');
+(1629876796, '48c6e7e74f342110ceda59855a94d7ba.jpg');
 
 -- --------------------------------------------------------
 
@@ -124,6 +124,7 @@ CREATE TABLE `products` (
   `id_photos` int(11) NOT NULL,
   `id_category` int(11) NOT NULL,
   `id_featured` int(11) DEFAULT NULL,
+  `shopee` text NOT NULL,
   `status` enum('show','hide') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -131,8 +132,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `status`) VALUES
-(14, 'Menjadi Manusia Berkarakter', '<p>tesssssssssssss</p>', 'Rp. 10.000', '1', '1', 1629796721, 1, 2, 'show');
+INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `shopee`, `status`) VALUES
+(19, 'Menjadi Manusia Berkarakter', '<p>tesssssssss</p>', 'Rp. 10.000', '1', '1', 1629876796, 1, 3, 'shopee', 'show');
 
 -- --------------------------------------------------------
 
@@ -217,13 +218,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `featured_products`
 --
 ALTER TABLE `featured_products`
-  MODIFY `id_featured` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_featured` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -240,8 +241,7 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`),
-  ADD CONSTRAINT `featured` FOREIGN KEY (`id_featured`) REFERENCES `featured_products` (`id_featured`),
-  ADD CONSTRAINT `photo` FOREIGN KEY (`id_photos`) REFERENCES `photo_products` (`id_photo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `featured` FOREIGN KEY (`id_featured`) REFERENCES `featured_products` (`id_featured`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

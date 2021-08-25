@@ -1,4 +1,3 @@
-<?php var_dump($product); ?>
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-5">
     <div class="card-header py-3">
@@ -7,27 +6,49 @@
     <div class="card-body">
         <div class="table-responsive">
             <div class="container-fluid">
-                <form method='post' action="save" enctype='multipart/form-data'>
+                <form method='post' action="<?= base_url() ?>Products/update_data" enctype='multipart/form-data'>
                     <div class="row">
                         <div class="col">
-                            <!-- <input type="file" class="filepond" id="filepond" name="filepond[]" multiple data-allow-reorder="true" data-max-file-size="3MB"> -->
-                            <input id="drop" name="files[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..." required>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1; ?>
+                                    <?php foreach ($images as $row) : ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><img src="<?= base_url() ?>assets/product/<?= $row['photo'] ?>" width="200px" alt=""></td>
+                                            <td><a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_photo="<?= $row['id_photo'] ?>" data-photo="<?= $row['photo'] ?>"><i class="fas fa-trash"></i></a></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <!-- HIDDEN INPUT -->
+                            <input type="hidden" name="id" value="<?= $product[0]['id'] ?>">
+                            <input type="hidden" name="id_photos" value="<?= $product[0]['id_photos'] ?>">
+                            <!-- HIDDEN INPUT -->
+                            <input id="drop" name="files[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend color-warning">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Nama Produk</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="name_product" name="name_product" required>
+                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="name_product" name="name_product" value="<?= $product[0]['name_product'] ?>" required>
                             </div>
-                            <textarea name="description" id="description" cols="30" rows="10" placeholder="Description Product"></textarea>
+                            <textarea name="description" id="description" cols="30" rows="10" placeholder="Description Product"><?= $product[0]['description'] ?></textarea>
                             <div class="row">
                                 <div class="col">
                                     <div class="input-group my-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Harga</span>
                                         </div>
-                                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="price" name="price" required>
+                                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="price" name="price" value="<?= $product[0]['price'] ?>" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -35,7 +56,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Stok</span>
                                         </div>
-                                        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="stok" name="stock" required>
+                                        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="stok" name="stock" value="<?= $product[0]['stock'] ?>" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -43,7 +64,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Berat</span>
                                         </div>
-                                        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="Berat" name="weight">
+                                        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="Berat" name="weight" value="<?= $product[0]['weight'] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -55,9 +76,10 @@
                                             <label class="input-group-text" for="kategori">Kategori Produk</label>
                                         </div>
                                         <select class="custom-select" id="kategori" name="id_category" required>
-                                            <option selected disabled value="">Choose...</option>
                                             <?php foreach ($category as $row) : ?>
-                                                <option value="<?= $row['id_category'] ?>"><?= $row['name_category'] ?></option>
+                                                <option value="<?= $row['id_category'] ?>" <?php $row['id_category'] == $product[0]['id_category'] ? 'selected' : '' ?>>
+                                                    <?= $row['name_category'] ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -68,9 +90,11 @@
                                             <label class="input-group-text" for="featured">Feature Produk</label>
                                         </div>
                                         <select class="custom-select" id="featured" name="id_featured">
-                                            <option selected disabled>Choose...</option>
+                                            <!-- <option selected disabled>Choose...</option> -->
                                             <?php foreach ($featured as $row) : ?>
-                                                <option value="<?= $row['id_featured'] ?>"><?= $row['name_featured'] ?></option>
+                                                <option value="<?= $row['id_featured'] ?>" <?php $row['id_featured'] == $product[0]['id_featured'] ? 'selected' : '' ?>>
+                                                    <?= $row['name_featured'] ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -80,7 +104,7 @@
                                 <div class="input-group-prepend color-warning">
                                     <span class="input-group-text bg-warning text-white" id="inputGroup-sizing-default">Link Shopee</span>
                                 </div>
-                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="shopee" name="shopee">
+                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="shopee" name="shopee" value="<?= $product[0]['shopee'] ?>">
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="show" checked>
@@ -103,6 +127,31 @@
     </div>
 </div>
 </div>
+<!--MODAL DELETE-->
+<form>
+    <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong>Are you sure to delete this record?</strong>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id_delete" id="id_delete" class="form-control">
+                    <input type="hidden" name="photo" id="photo" class="form-control">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" type="submit" id="btn_delete" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--END MODAL DELETE-->
 <!-- FOOTER -->
 <?php $this->load->view('templates/footer'); ?>
 <script>
@@ -167,4 +216,41 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
+    //get data for delete record
+    $('.item_delete').on('click', function() {
+        var id_photo = $(this).data('id_photo');
+        var photo = $(this).data('photo');
+
+        $('#Modal_Delete').modal('show');
+        $('[id="id_delete"]').val(id_photo);
+        $('[id="photo"]').val(photo);
+    });
+
+    //delete record to database
+    $('#btn_delete').on('click', function() {
+        var id_photo = $('#id_delete').val();
+        var photo = $('#photo').val();
+        console.log(id_photo)
+        console.log(photo)
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Products/deleteImages') ?>",
+            dataType: "JSON",
+            data: {
+                id_photo: id_photo,
+                photo: photo
+            },
+            success: function(data) {
+                $('[id="id_delete"]').val("");
+                $('[id="photo"]').val("");
+                $('#Modal_Delete').modal('hide');
+                location.reload()
+                new Toast({
+                    message: 'Data Berhasil di Delete',
+                    type: 'danger'
+                });
+            }
+        });
+        return false;
+    });
 </script>

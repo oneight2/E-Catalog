@@ -4,7 +4,7 @@ class Products_model extends CI_Model
 
     function product_list()
     {
-        $query = "SELECT * FROM `products` JOIN `category` ON `products`.`id_category` = `category`.`id_category` ";
+        $query = "SELECT * FROM `products` JOIN `category` ON `products`.`id_category` = `category`.`id_category` ORDER BY `id` DESC ";
         return $this->db->query($query)->result_array();
     }
     function category_list()
@@ -20,6 +20,11 @@ class Products_model extends CI_Model
     function product_data($id)
     {
         $query = "SELECT * FROM `products` WHERE `id` = $id ";
+        return $this->db->query($query)->result_array();
+    }
+    function image_data($id_photo)
+    {
+        $query = "SELECT * FROM `photo_products` WHERE `id_photo` = $id_photo ";
         return $this->db->query($query)->result_array();
     }
 
@@ -54,6 +59,15 @@ class Products_model extends CI_Model
         $this->db->where('id', $id_product);
         $result = $this->db->delete('products');
         $this->db->where('id_photo', $id_photos);
+        $result = $this->db->delete('photo_products');
+        return $result;
+    }
+    function delete_images()
+    {
+        $id_photo = $this->input->post('id_photo');
+        $photo = $this->input->post('photo');
+        unlink('assets/product/' . $photo);
+        $this->db->where('photo', $photo);
         $result = $this->db->delete('photo_products');
         return $result;
     }

@@ -23,7 +23,7 @@
                             <td><?= $row['name_product'] ?></td>
                             <td><?= $row['name_category'] ?></td>
                             <td>
-                                <a href="<?= base_url() ?>Products/update/<?= $row['id'] ?>" class="btn btn-info btn-sm item_edit" data-id_product="<?= $row['id'] ?>"><i class="fas fa-edit"></i></a>
+                                <a href="<?= base_url() ?>Products/update/<?= $row['id'] ?>/<?= $row['id_photos'] ?>" class="btn btn-info btn-sm item_edit" data-id_product="<?= $row['id'] ?>"><i class="fas fa-edit"></i></a>
                                 <a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_product="<?= $row['id'] ?>" data-id_photos="<?= $row['id_photos'] ?>"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
