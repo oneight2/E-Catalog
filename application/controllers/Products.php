@@ -18,7 +18,8 @@ class Products extends CI_Controller
     {
         $data = array(
             'title' => "Admin",
-            'products' => $this->products->product_list()
+            'products' => $this->products->product_list(),
+            'photos' => $this->products->images_list()
         );
 
 
@@ -119,55 +120,6 @@ class Products extends CI_Controller
     {
         $id = $this->input->post('id');
         $id_photos = $this->input->post('id_photos');
-        $upload_image = $_FILES['files']['name'];
-        $count = count($_FILES['files']['name']);
-        var_dump($count);
-
-        if ($upload_image) {
-            echo 'uhuy';
-        }
-        var_dump($id);
-        var_dump($id_photos);
-        die();
-
-        if (empty($_FILES)) {
-
-            $data = [];
-            $count = count($_FILES['files']['name']);
-
-            for ($i = 0; $i < $count; $i++) {
-
-                if (!empty($_FILES['files']['name'][$i])) {
-                    $_FILES['file']['name'] = $_FILES['files']['name'][$i];
-                    $_FILES['file']['type'] = $_FILES['files']['type'][$i];
-                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-                    $_FILES['file']['error'] = $_FILES['files']['error'][$i];
-                    $_FILES['file']['size'] = $_FILES['files']['size'][$i];
-
-                    $config['upload_path'] = './assets/product';
-                    $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                    $config['max_size'] = '5000';
-                    $config['file_name'] = $_FILES['files']['name'][$i];
-                    $config['encrypt_name'] = TRUE;
-
-                    $this->load->library('upload', $config);
-
-                    if ($this->upload->do_upload('file')) {
-                        $uploadData = $this->upload->data();
-                        $filename = $uploadData['file_name'];
-                        $data['totalFiles'][] = $filename;
-                    }
-                }
-            }
-
-            $id_photo = $id_photos;
-            $image = $filename;
-            // Image TBL
-            $this->db->set('id_photo', $id_photo);
-            $this->db->set('photo', $image);
-            $this->db->insert('photo_products');
-        }
-
         $name_product   = $this->input->post('name_product');
         $description   = $this->input->post('description');
         $price  = $this->input->post('price');
@@ -189,8 +141,47 @@ class Products extends CI_Controller
         $this->db->set('status', $status);
         $this->db->set('id_photos', $id_photos);
         $this->db->where('id', $id);
-        $result = $this->db->update('product');
-        return $result;
+        $this->db->update('products');
+        redirect('Products/update/' . $id . '/' . $id_photos);
+    }
+
+    function update_image()
+    {
+        $id = $this->input->post('id');
+        $id_photos = $this->input->post('id_photos');
+        $data = [];
+        $count = count($_FILES['files']['name']);
+
+        for ($i = 0; $i < $count; $i++) {
+
+            if (!empty($_FILES['files']['name'][$i])) {
+                $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['files']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['files']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['files']['size'][$i];
+
+                $config['upload_path'] = './assets/product';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size'] = '5000';
+                $config['file_name'] = $_FILES['files']['name'][$i];
+                $config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('file')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    $data['totalFiles'][] = $filename;
+                }
+            }
+            $image = $filename;
+            // Image TBL
+            $this->db->set('id_photo', $id_photos);
+            $this->db->set('photo', $image);
+            $this->db->insert('photo_products');
+        }
+        redirect('Products/update/' . $id . '/' . $id_photos);
     }
 
     function delete()

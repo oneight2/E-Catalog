@@ -4,7 +4,13 @@ class Products_model extends CI_Model
 
     function product_list()
     {
-        $query = "SELECT * FROM `products` JOIN `category` ON `products`.`id_category` = `category`.`id_category` ORDER BY `id` DESC ";
+        $query = "SELECT * FROM `products` JOIN `category` ON `products`.`id_category` = `category`.`id_category` JOIN `featured_products` ON `products`.`id_featured` = `featured_products`.`id_featured` ORDER BY `id` DESC ";
+        return $this->db->query($query)->result_array();
+    }
+
+    function image_list()
+    {
+        $query = "SELECT * FROM `photo_products` ";
         return $this->db->query($query)->result_array();
     }
     function category_list()

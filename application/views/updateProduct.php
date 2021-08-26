@@ -6,34 +6,41 @@
     <div class="card-body">
         <div class="table-responsive">
             <div class="container-fluid">
-                <form method='post' action="<?= base_url() ?>Products/update_data" enctype='multipart/form-data'>
-                    <div class="row">
-                        <div class="col">
-                            <table class="table table-striped">
-                                <thead>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php foreach ($images as $row) : ?>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="row"><?= $no++ ?></th>
+                                        <td><img src="<?= base_url() ?>assets/product/<?= $row['photo'] ?>" width="200px" alt=""></td>
+                                        <td><a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_photo="<?= $row['id_photo'] ?>" data-photo="<?= $row['photo'] ?>"><i class="fas fa-trash"></i></a></td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1; ?>
-                                    <?php foreach ($images as $row) : ?>
-                                        <tr>
-                                            <th scope="row"><?= $no++ ?></th>
-                                            <td><img src="<?= base_url() ?>assets/product/<?= $row['photo'] ?>" width="200px" alt=""></td>
-                                            <td><a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_photo="<?= $row['id_photo'] ?>" data-photo="<?= $row['photo'] ?>"><i class="fas fa-trash"></i></a></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <form method='post' action="<?= base_url() ?>Products/update_image" enctype='multipart/form-data'>
                             <!-- HIDDEN INPUT -->
                             <input type="hidden" name="id" value="<?= $product[0]['id'] ?>">
                             <input type="hidden" name="id_photos" value="<?= $product[0]['id_photos'] ?>">
                             <!-- HIDDEN INPUT -->
                             <input id="drop" name="files[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
-                        </div>
+                            <button type="submit" class="btn btn-info btn-md btn-block my-3">Update image</button>
+                        </form>
+                    </div>
+                    <form method='post' action="<?= base_url() ?>Products/update_data">
+                        <!-- HIDDEN INPUT -->
+                        <input type="hidden" name="id" value="<?= $product[0]['id'] ?>">
+                        <input type="hidden" name="id_photos" value="<?= $product[0]['id_photos'] ?>">
+                        <!-- HIDDEN INPUT -->
                         <div class="col">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend color-warning">
@@ -77,7 +84,7 @@
                                         </div>
                                         <select class="custom-select" id="kategori" name="id_category" required>
                                             <?php foreach ($category as $row) : ?>
-                                                <option value="<?= $row['id_category'] ?>" <?php $row['id_category'] == $product[0]['id_category'] ? 'selected' : '' ?>>
+                                                <option value="<?= $row['id_category'] ?>" <?php echo ($row['id_category'] == $product[0]['id_category'] ? 'selected' : '') ?>>
                                                     <?= $row['name_category'] ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -92,7 +99,7 @@
                                         <select class="custom-select" id="featured" name="id_featured">
                                             <!-- <option selected disabled>Choose...</option> -->
                                             <?php foreach ($featured as $row) : ?>
-                                                <option value="<?= $row['id_featured'] ?>" <?php $row['id_featured'] == $product[0]['id_featured'] ? 'selected' : '' ?>>
+                                                <option value="<?= $row['id_featured'] ?>" <?php echo ($row['id_featured'] == $product[0]['id_featured'] ? 'selected' : '') ?>>
                                                     <?= $row['name_featured'] ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -107,21 +114,21 @@
                                 <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="shopee" name="shopee" value="<?= $product[0]['shopee'] ?>">
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="show" checked>
+                                <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="show" <?= $product[0]['status'] == 'show' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="exampleRadios1">
                                     Show
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="hide">
+                                <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="hide" <?= $product[0]['status'] == 'hide' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="exampleRadios2">
                                     Hide
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-md btn-block my-3">Tambah Produk</button>
+                            <button type="submit" class="btn btn-primary btn-md btn-block my-3">Update Produk</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
