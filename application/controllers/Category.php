@@ -16,30 +16,51 @@ class Category extends CI_Controller
 		$data = array(
 			'title' => "Admin"
 		);
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('category', $data);
 	}
 
-	function product_data(){
-		$data=$this->Category_model->product_list();
+	function product_data()
+	{
+		$data = $this->Category_model->product_list();
 		echo json_encode($data);
 	}
 
-	function save(){
-		$data=$this->Category_model->save_product();
+	function save()
+	{
+		$name_category = $this->input->post('nama');
+		$icon = $_FILES['icon'];
+
+
+		$config['upload_path'] = './assets/category';
+		$config['allowed_types'] = 'jpg|png';
+		$new_name = date('d-m-y') . '_' . $_FILES['icon']['name'];
+		$config['file_name'] = $new_name;
+		$config['encrypt_name'] = TRUE;
+		$this->load->library('upload', $config);
+		if ($this->upload->do_upload('icon')) {
+			$icon = $this->upload->data('file_name');
+		} else {
+			echo $this->upload->display_errors();
+		}
+		$this->db->set('name_category', $name_category);
+		$this->db->set('icon', $icon);
+		$this->db->insert('category');
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload Berhasil!</div>');
+		redirect('category');
+	}
+
+	function update()
+	{
+		$data = $this->Category_model->update_product();
 		echo json_encode($data);
 	}
 
-	function update(){
-		$data=$this->Category_model->update_product();
+	function delete()
+	{
+		$data = $this->Category_model->delete_product();
 		echo json_encode($data);
 	}
-
-	function delete(){
-		$data=$this->Category_model->delete_product();
-		echo json_encode($data);
-	}
-
 }

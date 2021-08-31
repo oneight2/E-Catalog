@@ -19,7 +19,7 @@ class Products extends CI_Controller
         $data = array(
             'title' => "Admin",
             'products' => $this->products->product_list(),
-            'photos' => $this->products->images_list()
+            // 'photos' => $this->products->images_list()
         );
 
 

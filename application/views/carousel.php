@@ -15,7 +15,7 @@
                     <?= form_open_multipart('Carousel/index') ?>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="upload-carousel" aria-describedby="inputGroupFileAddon04" name="carousel">
+                            <input type="file" class="custom-file-input" id="upload-carousel" aria-describedby="inputGroupFileAddon04" name="carousel" required>
                             <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                         </div>
                         <div class="input-group-append">

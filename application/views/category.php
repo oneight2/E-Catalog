@@ -25,32 +25,42 @@
 </div>
 <!-- /.container-fluid -->
 <!-- MODAL ADD -->
-<form>
-    <div class="modal fade" id="Modal_Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+
+<div class="modal fade" id="Modal_Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <Form method="post" enctype="multipart/form-data" action="Category/save">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Nama Kategori</label>
                         <div class="col-md-10">
-                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Kategori">
+                            <input type="text" name="nama" id="nama" class="form-control mb-3" placeholder="Nama Kategori">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Icon</label>
+                        <div class="col-md-10">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon04" id="upload-icon" name="icon" required>
+                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" type="submit" id="btn_save" class="btn btn-primary">Save</button>
+                    <button type="submit" id="btn_save" class="btn btn-primary">Save</button>
                 </div>
-            </div>
+            </Form>
         </div>
     </div>
-</form>
+</div>
 <!--END MODAL ADD-->
 <!-- MODAL EDIT -->
 <form>
@@ -70,6 +80,9 @@
                             <input type="text" id="id_kategori" class="form-control" hidden>
                             <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Nama Kategori">
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <input id="drop" name="files" type="file" class="file" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -97,6 +110,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id_delete" id="id_delete" class="form-control">
+                    <input type="hidden" name="icon" id="icon" class="form-control">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="button" type="submit" id="btn_delete" class="btn btn-primary">Yes</button>
                 </div>
@@ -108,53 +122,18 @@
 
 
 <!-- FOOTER -->
-</div>
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy;Indonesia Heritage Foundation<?= date('Y'); ?></span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<?= base_url('login/logout'); ?>">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- FOOTER -->
 <?php $this->load->view('templates/footer'); ?>
 
 <script>
     $(document).ready(function() {
+        $('#upload-icon').on('change', function() {
+            //get the file name
+            var fileName = $(this).val().split('\\').pop();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
         show_product(); //call function show all product
+        // initialize with defaults
 
         $('#mydata').dataTable();
 
@@ -169,14 +148,16 @@
                 success: function(data) {
                     var html = '';
                     var no = 1;
+                    var base_url = window.location.origin;
                     var i;
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
                             '<td>' + no++ + '</td>' +
                             '<td>' + data[i].name_category + '</td>' +
+                            '<td><img src="' + base_url + '/e-catalog/assets/category/' + data[i].icon + '" height="100px" ></td>' +
                             '<td style="text-align:center;">' +
-                            '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="' + data[i].name_category + '" data-id_kategori="' + data[i].id_category + '"><i class="fas fa-edit"></i></a>' + ' ' +
-                            '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_kategori="' + data[i].id_category + '" ><i class="fas fa-trash"></i></a>' +
+                            // '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="' + data[i].name_category + '" data-id_kategori="' + data[i].id_category + '"><i class="fas fa-edit"></i></a>' + ' ' +
+                            '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_kategori="' + data[i].id_category + '" data-icon="' + data[i].icon + '"><i class="fas fa-trash"></i></a>' +
                             '</td>' +
                             '</tr>';
                     }
@@ -186,24 +167,6 @@
             });
         }
 
-        //Save product
-        $('#btn_save').on('click', function() {
-            var nama_kategori = $('#nama').val();
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('Category/save') ?>",
-                dataType: "JSON",
-                data: {
-                    name_category: nama_kategori
-                },
-                success: function(data) {
-                    $('[id="nama"]').val("");
-                    $('#Modal_Add').modal('hide');
-                    show_product();
-                }
-            });
-            return false;
-        });
 
         //get data for update record
         $('#show_data').on('click', '.item_edit', function() {
@@ -240,23 +203,28 @@
         //get data for delete record
         $('#show_data').on('click', '.item_delete', function() {
             var id_kategori = $(this).data('id_kategori');
+            var icon = $(this).data('icon');
 
             $('#Modal_Delete').modal('show');
             $('[id="id_delete"]').val(id_kategori);
+            $('[id="icon"]').val(icon);
         });
 
         //delete record to database
         $('#btn_delete').on('click', function() {
             var id_kategori = $('#id_delete').val();
+            var icon = $('#icon').val();
             $.ajax({
                 type: "POST",
                 url: "<?php echo site_url('Category/delete') ?>",
                 dataType: "JSON",
                 data: {
-                    id_category: id_kategori
+                    id_category: id_kategori,
+                    icon: icon
                 },
                 success: function(data) {
                     $('[id="id_delete"]').val("");
+                    $('[id="icon"]').val("");
                     $('#Modal_Delete').modal('hide');
                     show_product();
                 }

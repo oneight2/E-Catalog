@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2021 at 01:00 PM
+-- Generation Time: Aug 31, 2021 at 11:43 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -53,6 +53,13 @@ CREATE TABLE `carousel` (
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `carousel`
+--
+
+INSERT INTO `carousel` (`id`, `image`) VALUES
+(11, '91f7eb49adedfdbe98ccbaaf8b42f1a7.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -61,15 +68,17 @@ CREATE TABLE `carousel` (
 
 CREATE TABLE `category` (
   `id_category` int(11) NOT NULL,
-  `name_category` varchar(100) NOT NULL
+  `name_category` varchar(100) NOT NULL,
+  `icon` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id_category`, `name_category`) VALUES
-(1, 'Buku ');
+INSERT INTO `category` (`id_category`, `name_category`, `icon`) VALUES
+(1, 'Buku ', ''),
+(3, 'APE', '');
 
 -- --------------------------------------------------------
 
@@ -106,7 +115,10 @@ CREATE TABLE `photo_products` (
 --
 
 INSERT INTO `photo_products` (`id_photo`, `photo`) VALUES
-(1629876796, '48c6e7e74f342110ceda59855a94d7ba.jpg');
+(1629944731, '1c9369874aea8f4290fcdcbec5c2c156.jpg'),
+(1629944731, 'fd2869074fae9d399b897dcff4d9b467.jpg'),
+(1629952342, 'e6c7ecf0183a3ee741fae95e2113ed5c.jpg'),
+(1629952342, '269b8763b0338096322a6c3ad463e661.jpg');
 
 -- --------------------------------------------------------
 
@@ -133,7 +145,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `shopee`, `status`) VALUES
-(19, 'Menjadi Manusia Berkarakter', '<p>tesssssssss</p>', 'Rp. 10.000', '1', '1', 1629876796, 1, 3, 'shopee', 'show');
+(21, 'Menjadi Manusia Berkarakter', '<p>Buku Bu Ratna</p>', 'Rp. 120.000', '1', '10', 1629944731, 1, 2, 'shopee', 'show'),
+(22, 'Tangram', '<p>Tangram itu <strong>bagus</strong></p>', 'Rp. 1.000', '1', '12', 1629952342, 3, 3, 'shopee', 'show');
 
 -- --------------------------------------------------------
 
@@ -153,7 +166,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id_review`, `review`, `name_customer`, `type_customer`) VALUES
-(1, '<p><em>barangnya bagus banget</em></p>', 'Alvin', 'CEO Tokopedia');
+(1, '<p><em>barangnya bagus banget</em></p>', 'Alvin', 'CEO Tokopedia'),
+(3, '<p>bagusss</p>', 'syarif', 'Indonesia Heritage Foundation');
 
 --
 -- Indexes for dumped tables
@@ -206,13 +220,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
@@ -224,13 +238,13 @@ ALTER TABLE `featured_products`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
