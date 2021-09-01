@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2021 at 11:43 AM
+-- Generation Time: Sep 01, 2021 at 11:28 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -58,7 +58,8 @@ CREATE TABLE `carousel` (
 --
 
 INSERT INTO `carousel` (`id`, `image`) VALUES
-(11, '91f7eb49adedfdbe98ccbaaf8b42f1a7.jpg');
+(12, 'c55f862988eb1d52bbe16b5054ed361e.png'),
+(13, 'a4992685cf5a473df139624effa86e6f.png');
 
 -- --------------------------------------------------------
 
@@ -77,8 +78,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id_category`, `name_category`, `icon`) VALUES
-(1, 'Buku ', ''),
-(3, 'APE', '');
+(5, 'APE', '572fb9d80f68b86478b91ba7420b4ccd.png'),
+(6, 'BUKU', '40209e2dce1fdef9642e17eb32329e38.png');
 
 -- --------------------------------------------------------
 
@@ -145,8 +146,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `shopee`, `status`) VALUES
-(21, 'Menjadi Manusia Berkarakter', '<p>Buku Bu Ratna</p>', 'Rp. 120.000', '1', '10', 1629944731, 1, 2, 'shopee', 'show'),
-(22, 'Tangram', '<p>Tangram itu <strong>bagus</strong></p>', 'Rp. 1.000', '1', '12', 1629952342, 3, 3, 'shopee', 'show');
+(21, 'Menjadi Manusia Berkarakter', '<p>Buku Bu Ratna</p>', 'Rp. 120.000', '1', '10', 1629944731, 5, 2, 'shopee', 'show'),
+(22, 'Tangram', '<p>Tangram itu <strong>bagus</strong></p>', 'Rp. 1.000', '1', '12', 1629952342, 6, 3, 'shopee', 'show');
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,6 @@ ALTER TABLE `photo_products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `category` (`id_category`),
   ADD KEY `featured` (`id_featured`),
   ADD KEY `photo` (`id_photos`);
 
@@ -220,13 +220,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
@@ -245,17 +245,6 @@ ALTER TABLE `products`
 --
 ALTER TABLE `reviews`
   MODIFY `id_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`),
-  ADD CONSTRAINT `featured` FOREIGN KEY (`id_featured`) REFERENCES `featured_products` (`id_featured`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
