@@ -113,6 +113,12 @@
                                 </div>
                                 <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="shopee" name="shopee" value="<?= $product[0]['shopee'] ?>">
                             </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend color-warning">
+                                    <span class="input-group-text bg-info text-white" id="inputGroup-sizing-default">Link Siplah</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="siplah" name="siplah" value="<?= $product[0]['siplah'] ?>">
+                            </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="show" <?= $product[0]['status'] == 'show' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="exampleRadios1">

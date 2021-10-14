@@ -89,8 +89,10 @@ class Products extends CI_Controller
             'id_category'    => $this->input->post('id_category'),
             'id_featured'    => $this->input->post('id_featured'),
             'shopee'    => $this->input->post('shopee'),
+            'siplah'    => $this->input->post('siplah'),
             'status'    => $this->input->post('status'),
-            'id_photos' => $id_photo
+            'id_photos' => $id_photo,
+            'create_at' => date('Y-m-d H:i:s')
         );
         // Product TBL
         $this->db->insert('products', $product);
@@ -128,6 +130,7 @@ class Products extends CI_Controller
         $id_category  = $this->input->post('id_category');
         $id_featured  = $this->input->post('id_featured');
         $shopee  = $this->input->post('shopee');
+        $siplah  = $this->input->post('siplah');
         $status  = $this->input->post('status');
 
         $this->db->set('name_product', $name_product);
@@ -138,6 +141,7 @@ class Products extends CI_Controller
         $this->db->set('id_category', $id_category);
         $this->db->set('id_featured', $id_featured);
         $this->db->set('shopee', $shopee);
+        $this->db->set('siplah', $siplah);
         $this->db->set('status', $status);
         $this->db->set('id_photos', $id_photos);
         $this->db->where('id', $id);
@@ -192,6 +196,11 @@ class Products extends CI_Controller
     function deleteImages()
     {
         $data = $this->Products_model->delete_images();
+        echo json_encode($data);
+    }
+
+    function get_photos(){
+        $data = $this->Products_model->get_photos();
         echo json_encode($data);
     }
 }

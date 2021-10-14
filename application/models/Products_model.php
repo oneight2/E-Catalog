@@ -77,4 +77,13 @@ class Products_model extends CI_Model
         $result = $this->db->delete('photo_products');
         return $result;
     }
+
+    function get_photos()
+    {
+        $id_photo = $this->input->post('id_photos');
+        $photos = $this->db->query("SELECT * FROM `photo_products` WHERE `id_photo` = $id_photo ")->result();
+        return array(
+            'photos' => $photos
+        );
+    }
 }
