@@ -140,6 +140,7 @@
     </div>
 </div>
 </div>
+</div>
 <!--MODAL DELETE-->
 <form>
     <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -10,7 +10,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item <?= $this->uri->segment(1) == 'admin' ? 'active' : '' ?> ">
         <a class="nav-link" href="<?= base_url('/admin') ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -18,22 +18,22 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'products' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/products') ?>">
             <i class="fas fa-tools"></i>
             <span>Product</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'carousel' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/carousel') ?>">
             <i class="fas fa-images"></i>
             <span>Carousel</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'aboutUs' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/aboutUs') ?>">
             <i class="fas fa-tasks"></i>
             <span>About Us</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'reviews' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/reviews') ?>">
             <i class="fas fa-file-alt"></i>
             <span>Reviews</span></a>
@@ -47,17 +47,12 @@
     </div>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('/pegawai') ?>">
-            <i class="fas fa-users"></i>
-            <span>Daftar Pegawai</span></a>
-    </li>
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'featuredProducts' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/featuredProducts') ?>">
             <i class="far fa-building"></i>
             <span>Featured Products</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?= $this->uri->segment(1) == 'category' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('/category') ?>">
             <i class="far fa-building"></i>
             <span>List Category</span></a>
