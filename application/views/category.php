@@ -1,9 +1,15 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-5">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Category</h6>
     </div>
     <div class="card-body">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Perhatian!</h4>
+            <p>Apabila product category dihapus maka product dengan category tersebut akan terhide dari halaman depan</p>
+            <hr>
+            <p>ukuran icon category 500x500 download template <a href="<?= base_url('assets/templates/template-category.eps') ?>">disini</a></p>
+        </div>
         <a href="javascript:void(0);" class="btn btn-primary btn-sm ml-3 mb-4" data-toggle="modal" data-target="#Modal_Add"><span class="fa fa-plus"></span> Tambah Data</a>
         <div class="table-responsive">
             <table class="table table-striped" id="mydata">
@@ -63,7 +69,7 @@
 </div>
 <!--END MODAL ADD-->
 <!-- MODAL EDIT -->
-<form>
+<form method="post" enctype="multipart/form-data" action="Category/update">
     <div class="modal fade" id="Modal_Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -77,18 +83,21 @@
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label">Nama Kategori</label>
                         <div class="col-md-10">
-                            <input type="text" id="id_kategori" class="form-control" hidden>
+                            <input type="text" name="id_category" id="id_category" class="form-control" hidden>
                             <input type="text" name="nama_edit" id="nama_edit" class="form-control" placeholder="Nama Kategori">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <input id="drop" name="files" type="file" class="file" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                        <div class="col-12">
+                            <input id="drop" name="icon_category" id="icon_category" type="file" class="file" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" type="submit" id="btn_update" class="btn btn-primary">Update</button>
+                    <button type="submit" id="btn_update" class="btn btn-primary">Update</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -156,7 +165,7 @@
                             '<td>' + data[i].name_category + '</td>' +
                             '<td><img src="' + base_url + '/e-catalog/assets/category/' + data[i].icon + '" height="100px" ></td>' +
                             '<td style="text-align:center;">' +
-                            // '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="' + data[i].name_category + '" data-id_kategori="' + data[i].id_category + '"><i class="fas fa-edit"></i></a>' + ' ' +
+                            '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-nama_kategori="' + data[i].name_category + '" data-id_kategori="' + data[i].id_category + '"><i class="fas fa-edit"></i></a>' + ' ' +
                             '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-id_kategori="' + data[i].id_category + '" data-icon="' + data[i].icon + '"><i class="fas fa-trash"></i></a>' +
                             '</td>' +
                             '</tr>';
@@ -174,31 +183,31 @@
             var nama_kategori = $(this).data('nama_kategori');
 
             $('#Modal_Edit').modal('show');
-            $('[id="id_kategori"]').val(id_kategori);
+            $('[id="id_category"]').val(id_kategori);
             $('[id="nama_edit"]').val(nama_kategori);
         });
 
         //update record to database
-        $('#btn_update').on('click', function() {
-            var id_kategori = $('#id_kategori').val();
-            var nama_kategori = $('#nama_edit').val();
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('Category/update') ?>",
-                dataType: "JSON",
-                data: {
-                    id_category: id_kategori,
-                    name_category: nama_kategori
-                },
-                success: function(data) {
-                    $('[id="id_kategori"]').val("");
-                    $('[id="nama_edit"]').val("");
-                    $('#Modal_Edit').modal('hide');
-                    show_product();
-                }
-            });
-            return false;
-        });
+        // $('#btn_update').on('click', function() {
+        //     var id_kategori = $('#id_kategori').val();
+        //     var nama_kategori = $('#nama_edit').val();
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "<?php echo site_url('Category/update') ?>",
+        //         dataType: "JSON",
+        //         data: {
+        //             id_category: id_kategori,
+        //             name_category: nama_kategori
+        //         },
+        //         success: function(data) {
+        //             $('[id="id_kategori"]').val("");
+        //             $('[id="nama_edit"]').val("");
+        //             $('#Modal_Edit').modal('hide');
+        //             show_product();
+        //         }
+        //     });
+        //     return false;
+        // });
 
         //get data for delete record
         $('#show_data').on('click', '.item_delete', function() {

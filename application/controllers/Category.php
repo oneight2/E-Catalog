@@ -54,8 +54,38 @@ class Category extends CI_Controller
 
 	function update()
 	{
-		$data = $this->Category_model->update_product();
-		echo json_encode($data);
+		// $data = $this->Category_model->update_product();
+		// echo json_encode($data);
+
+		$id_category = $this->input->post('id_category');
+		$name_category = $this->input->post('nama_edit');
+		$icon = $_FILES['icon_category'];
+
+
+		if (file_exists($_FILES['icon_category']['tmp_name'])) {
+			$config['upload_path'] = './assets/category';
+			$config['allowed_types'] = 'jpg|png';
+			$new_name = date('d-m-y') . '_' . $_FILES['icon_category']['name'];
+			$config['file_name'] = $new_name;
+			$config['encrypt_name'] = TRUE;
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('icon_category')) {
+				$icon = $this->upload->data('file_name');
+			} else {
+				echo $this->upload->display_errors();
+			}
+			$this->db->set('name_category', $name_category);
+			$this->db->set('icon', $icon);
+			$this->db->where('id_category', $id_category);
+			$this->db->update('category');
+		}
+
+		$this->db->set('name_category', $name_category);
+		$this->db->where('id_category', $id_category);
+		$this->db->update('category');
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Update Berhasil!</div>');
+		redirect('category');
 	}
 
 	function delete()

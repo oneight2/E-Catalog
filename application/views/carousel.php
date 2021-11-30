@@ -1,10 +1,14 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4 mt-5">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Carousel</h6>
     </div>
     <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Perhatian!</h4>
+            <p>ukuran carousel 1920x685 download template <a href="<?= base_url('assets/templates/template-carousel.eps') ?>">disini</a></p>
+        </div>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             <span class="fa fa-plus"></span> Tambah Data
         </button>

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2021 at 06:02 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Oct 17, 2021 at 06:23 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -58,8 +59,8 @@ CREATE TABLE `carousel` (
 --
 
 INSERT INTO `carousel` (`id`, `image`) VALUES
-(14, '5f28770a4021d5b99ccf4c9b2fa99072.png'),
-(15, '2732459ee04f752c2b41f9c85ab95484.png');
+(16, '410ef1f4d32b2c6effc1d00cfbadb80d.png'),
+(18, 'd585091b5e409cba730b5923d881e5cf.png');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id_category`, `name_category`, `icon`) VALUES
 (5, 'APE', '572fb9d80f68b86478b91ba7420b4ccd.png'),
-(6, 'BUKU', '40209e2dce1fdef9642e17eb32329e38.png');
+(6, 'Bukuu', 'c79e4b27caff2cec5531532cb27f4d3e.png'),
+(8, 'Tess', '472d43001dcebb9984cff78318ffd475.png');
 
 -- --------------------------------------------------------
 
@@ -138,16 +140,18 @@ CREATE TABLE `products` (
   `id_category` int(11) NOT NULL,
   `id_featured` int(11) DEFAULT NULL,
   `shopee` text NOT NULL,
-  `status` enum('show','hide') NOT NULL
+  `siplah` text NOT NULL,
+  `status` enum('show','hide') NOT NULL,
+  `create_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `shopee`, `status`) VALUES
-(21, 'Menjadi Manusia Berkarakter', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 'Rp. 120.000', '1', '10', 1629944731, 6, 2, 'shopee', 'show'),
-(22, 'Tangram', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 'Rp. 1.000', '1', '12', 1629952342, 6, 3, 'shopee', 'show');
+INSERT INTO `products` (`id`, `name_product`, `description`, `price`, `weight`, `stock`, `id_photos`, `id_category`, `id_featured`, `shopee`, `siplah`, `status`, `create_at`) VALUES
+(21, 'Menjadi Manusia Berkarakter', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 'Rp. 120.000', '1', '10', 1629944731, 6, 2, 'shopee', 'siplah', 'show', '2021-10-15 00:00:00'),
+(22, 'Tangram', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', 'Rp. 1.000', '1', '12', 1629952342, 6, 3, 'shopee', 'siplah', 'show', '2021-10-16 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -220,13 +224,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `carousel`
 --
 ALTER TABLE `carousel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
